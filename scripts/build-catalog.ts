@@ -50,6 +50,14 @@ const PAGE_BLOCKLIST = new Set([
   'shutdown.html',
 ]);
 
+/**
+ * Pinned slug → source-file mappings. A slug listed here ALWAYS resolves to this exact
+ * source file, ignoring the wrapper's iframe src. Use for games we've hand-verified.
+ */
+const SOURCE_OVERRIDES: Record<string, string> = {
+  '8ballclassic': '8 Ball Classic.html',
+};
+
 const SHUTDOWN_RE = /<!--\s*CKV-SHUTDOWN:START[\s\S]*?CKV-SHUTDOWN:END\s*-->/g;
 const CDN_RE = /cdn\.jsdelivr\.net|jsdelivr|githack|raw\.githubusercontent|unpkg\.com/i;
 
@@ -339,7 +347,18 @@ function build(): void {
     let playable = false;
     let rawForInference = '';
 
-    if (/^https?:\/\//i.test(rawSrc)) {
+    const override = SOURCE_OVERRIDES[slug];
+    if (override && htmlSet.has(override)) {
+      // Pinned mapping — always serve this exact source file for this slug.
+      referencedRaw.add(override);
+      rawForInference = readFileSync(join(SOURCE, override), 'utf8');
+      if (CDN_RE.test(rawForInference)) report.cdnDeps++;
+      if (stripAndCopyHtml(override, slug)) {
+        htmlPath = `/games/${slug}.html`;
+        playable = true;
+        report.localPlayable++;
+      }
+    } else if (/^https?:\/\//i.test(rawSrc)) {
       htmlPath = rawSrc;
       external = true;
       playable = true;

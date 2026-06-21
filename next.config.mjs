@@ -46,10 +46,12 @@ const nextConfig = {
         headers: securityHeaders,
       },
       {
-        // Cleaned game HTML + assets are immutable build artifacts; cache hard.
+        // Game HTML can be re-cleaned/re-pinned between builds, so let the browser
+        // revalidate (cheap 304s) instead of caching for a year. Avoids users getting
+        // stuck on a stale game after we fix it.
         source: '/games/:path*',
         headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
         ],
       },
     ];
