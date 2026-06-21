@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Abandoned</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    #flash-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: black;
+    }
+
+    ruffle-player {
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: block;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/somer-sheff-73/xv@main/ruffle.js"></script>
+</head>
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+  <div id="flash-container"></div>
+
+  <script>
+    const container = document.getElementById("flash-container");
+
+    function resizeGame() {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const aspectRatio = 4 / 3;
+
+      let width = Math.floor(windowWidth);
+      let height = Math.floor(windowWidth / aspectRatio);
+
+      if (height > windowHeight) {
+        height = Math.floor(windowHeight);
+        width = Math.floor(height * aspectRatio);
+      }
+
+      container.style.width = `${width}px`;
+      container.style.height = `${height}px`;
+    }
+
+    window.addEventListener("resize", resizeGame);
+    window.addEventListener("DOMContentLoaded", () => {
+      resizeGame();
+
+      const ruffle = window.RufflePlayer?.newest() || window.RufflePlayer?.createPlayer();
+      if (ruffle && container) {
+        const player = ruffle.createPlayer();
+        player.style.width = "100%";
+        player.style.height = "100%";
+        player.style.background = "black";
+        container.appendChild(player);
+        player.load("https://cdn.jsdelivr.net/gh/bubbls/UGS-file-encryption@46ec45c16dd33c72226eb4e7f133caf871c3440d/Abandoned_3_Kongregate.swf");
+      } else {
+        container.textContent = "Ruffle failed to load.";
+      }
+    });
+  </script>
+</body>
+</html>

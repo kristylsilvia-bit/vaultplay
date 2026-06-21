@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<title>Idle Dice</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MENBM6GSNY"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MENBM6GSNY")</script>
+<script src="https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/js/app.js"></script><style>
+        body {
+            margin: 0;
+            background: white;
+        }
+        canvas {
+            margin: auto;
+        }
+        #turn{
+            width:100%;
+            height:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            background-color:white;
+            display:none;
+        }
+        #ui{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        #text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            font-family: Verdana monospace;
+            color: slategray;
+        }
+        #savePrompt{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+        #promptWindow{
+            color: white;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 25%;
+        }
+        #debug{
+            background-color: white;
+            position: absolute;
+        }
+        #save{
+            resize: none;
+            width: 100%;
+            height: 100%;
+        }
+        @font-face {
+            font-family: 'regular';
+            src: url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/robotomono-thin-webfont.woff2') format('woff2'),
+            url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/robotomono-thin-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+        @font-face {
+            font-family: 'text';
+            src: url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/roboto-thin-webfont.woff2') format('woff2'),
+            url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/roboto-thin-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+        @font-face {
+            font-family: 'med';
+            src: url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/roboto-medium-webfont.woff2') format('woff2'),
+            url('https://10160876-110595420412453794.preview.editmysite.com/uploads/b/12311014-497368211194164325/files/assets/fonts/roboto-medium-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+    </style>
+	</head>
+	<body onload=init();>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+	<div style="font-family:regular; position:absolute; left:-10000px">Font Loaded</div>
+	<div style="font-family:text; position:absolute; left:-10000px">Font Loaded</div>
+	<div style="font-family:med; position:absolute; left:-10000px">Font Loaded</div>
+	<div id=debug></div>
+	<div id=savePrompt>
+	<div id=promptWindow>
+	<span id=saveInstruction>Copy this and save it somewhere.</span> 
+	<span id=loadInstruction>Paste the savedata here and click load.</span> 
+	<textarea id=save></textarea> 
+	<button id=copy>Copy</button> 
+	<button id=load>Load</button> 
+	<button id=close>Close</button>
+	</div>
+	</div>
+	<div id=turn><span id=text>Turn your Device</span>
+	</div>
+	</body>
+	</html> 

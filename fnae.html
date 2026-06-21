@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Five Nights at Epstein's</title>
+  <style>
+    :root{
+      --bar-h: 48px;
+      --bg: #111;
+      --btn: #0b84ff;
+      --txt: #fff;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:#000;
+      overflow:hidden;
+    }
+    .toolbar{
+      height:var(--bar-h);
+      display:flex;
+      gap:.5rem;
+      padding:.5rem;
+      background:var(--bg);
+      color:var(--txt);
+      align-items:center;
+      box-sizing:border-box;
+      user-select:none;
+    }
+    .toolbar span{
+      font-weight:600;
+      white-space:nowrap;
+    }
+    button{
+      background:var(--btn);
+      color:var(--txt);
+      border:0;
+      padding:.5rem .8rem;
+      border-radius:4px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    button:active{ transform:translateY(1px); }
+    .frame-wrapper{
+      height:calc(100% - var(--bar-h));
+      background:#000;
+      display:flex;
+    }
+    iframe{
+      border:0;
+      width:100%;
+      height:100%;
+      display:block;
+      background:#000;
+    }
+  </style>
+</head>
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+  <div class="toolbar">
+    <span>Five Nights at Epstein's</span>
+    <button id="homeBtn" type="button">Home</button>
+    <div style="flex:1"></div>
+    <button id="fsBtn" type="button">Enter fullscreen</button>
+  </div>
+
+  <div class="frame-wrapper" id="frameWrapper">
+    <iframe
+      id="gameFrame"
+      src=" https://fnae-html-5-1-2-3.vercel.app"
+      allowfullscreen
+      allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
+      referrerpolicy="no-referrer"
+    ></iframe>
+  </div>
+
+  <script>
+    const fsBtn = document.getElementById('fsBtn');
+    const wrapper = document.getElementById('frameWrapper');
+    const homeBtn = document.getElementById('homeBtn');
+
+    function isFullscreen() {
+      return !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+    }
+
+    function requestFull(element) {
+      if (element.requestFullscreen) return element.requestFullscreen();
+      if (element.webkitRequestFullscreen) return element.webkitRequestFullscreen();
+      if (element.mozRequestFullScreen) return element.mozRequestFullScreen();
+      if (element.msRequestFullscreen) return element.msRequestFullscreen();
+    }
+
+    function exitFull() {
+      if (document.exitFullscreen) return document.exitFullscreen();
+      if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+      if (document.mozCancelFullScreen) return document.mozCancelFullScreen();
+      if (document.msExitFullscreen) return document.msExitFullscreen();
+    }
+
+    fsBtn.addEventListener('click', async () => {
+      try {
+        if (!isFullscreen()) {
+          // Fullscreen the wrapper (more reliable than trying to fullscreen a cross-origin iframe)
+          await requestFull(wrapper);
+          fsBtn.textContent = 'Exit fullscreen';
+        } else {
+          await exitFull();
+          fsBtn.textContent = 'Enter fullscreen';
+        }
+      } catch (e) {
+        console.error('Fullscreen request failed', e);
+      }
+    });
+
+    homeBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    function syncFsText() {
+      fsBtn.textContent = isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen';
+    }
+
+    document.addEventListener('fullscreenchange', syncFsText);
+    document.addEventListener('webkitfullscreenchange', syncFsText);
+    document.addEventListener('mozfullscreenchange', syncFsText);
+    document.addEventListener('MSFullscreenChange', syncFsText);
+  </script>
+</body>
+</html>

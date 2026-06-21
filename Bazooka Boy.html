@@ -1,0 +1,102 @@
+<!doctype html>
+
+<head>
+    
+    
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-');
+    </script>
+    <base href="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/bazooka-boy/">
+    <script src="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/ytgame.js" nonce="dEkCONaa23D47oC-g3LdhA"></script>
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <style>
+        body {
+            overflow-y: none;
+            margin: 0;
+            width: 100%;
+            position: fixed;
+            background: #ff4e21;
+        }
+
+        #loading {
+            width: 100vw;
+            height: 100vh;
+            background: #ff4e21;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        @media (orientation: landscape) {
+            #loading {
+                width: 50vw;
+            }
+        }
+
+        @media (orientation: portrait) {
+            #loading {
+                width: 100vw;
+            }
+        }
+
+        #loading_logo {
+            text-align: center;
+            width: 50%;
+            height: fit-content;
+        }
+
+        #loading_bar {
+            width: 50%;
+            height: 11px;
+            background: rgba(0, 0, 0, 0.25);
+            margin-top: 100px;
+            display: flex;
+        }
+
+        #loading_bar_progress {
+            width: 0%;
+            height: 11px;
+        }
+
+        #loading_text {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+<canvas id="canvas" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
+    <div id="loading"><img id="loading_logo" src="assets/2d/loading/Loading_Logo.png" alt="Super Sonic Logo">
+        <div id="loading_bar"><img id="loading_bar_progress" src="assets/2d/loading/Loading_Bar_Full.png" alt="Loading_Bar_Full"></div>
+        <h3 id="loading_text">Loading...</h3>
+    </div>
+    <div id="console-log" style="position: absolute; top: 0; left: 0"></div>
+    <script defer="defer" src="vendor.f0ea44553244713d397b.js" nonce="dEkCONaa23D47oC-g3LdhA"></script>
+    <script defer="defer" src="main.5889165dfcd7922a0793.js" nonce="dEkCONaa23D47oC-g3LdhA"></script>
+</body>

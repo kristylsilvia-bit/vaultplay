@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script>
+        const originalFetch = window.fetch;
+        window.fetch = async function (...args) {
+            if (typeof args[0] === 'string') {
+                args[0] = fixedUrl(args[0]);
+            } else if (args[0] instanceof Request) {
+                args[0] = new Request(fixedUrl(args[0].url), args[0]);
+            }
+            return originalFetch.apply(this, args);
+        };
+    
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+            return originalOpen.call(this, method, fixedUrl(url), ...rest);
+        };
+    
+        function fixedUrl(url) {
+            if ((url+"").endsWith("Play.js")) {
+                return "https://cdn.jsdelivr.net/gh/gn-math/assets@main/296/Play.js";
+            } else if ((url+"").endsWith("Play.wasm")) {
+                return "https://cdn.jsdelivr.net/gh/gn-math/assets@main/296/Play.wasm";
+            }
+            return url;
+        }
+    </script>
+    <base href="https://cdn.jsdelivr.net/gh/gn-math/assets@main/296/">
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="A PlayStation2 emulator for web browsers" />
+    <link rel="apple-touch-icon" href="logo192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Play!.js</title>
+    <script defer="defer" src="static/js/main.004c0343.js"></script>
+    <link href="static/css/main.5a525eca.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+<noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="global-row">
+        <div class="global-column">
+            <div><canvas id="outputCanvas" width="640" height="480" tabindex="-1" /></div>
+            <div id="root"></div>
+        </div>
+        <div class="global-column">
+            <p></p>
+            <h1>Play!.js</h1>
+            <h3>What is this?</h3>
+            <p>This is a port of Play!, a PlayStation2 emulator, running in a web browser. This is only an experiment and is not meant to play all games that are currently supported by the emulator on desktop and mobile.</p>
+            <p>Supported file types: ISO, CSO, CHD, ISZ, BIN, ELF.</p>
+            <p>No BIOS file required.</p>
+            <p>Recent version of Chrome or Firefox required for a smoother experience.</p>
+            <p></p>
+            <p></p>
+            <h3>Links</h3>
+            <div><a href="https://purei.org" target="blank">Official Website</a></div>
+            <div><a href="https://github.com/jpd002/Play-" target="blank">Source Code</a></div>
+            <div><a href="https://github.com/jpd002/Play-Compatibility/issues" target="blank">Compatibility List</a></div>
+            <p></p>
+            <p></p>
+            <h3>Controls</h3>
+            <div class="controls-row">
+                <div class="controls-column">
+                    <table>
+                        <tr>
+                            <th>PS2 Controller</th>
+                            <th>Keyboard</th>
+                        </tr>
+                        <tr>
+                            <td>D. Pad</td>
+                            <td>Arrow Keys</td>
+                        </tr>
+                        <tr>
+                            <td>Left Analog Stick</td>
+                            <td>F, H, T, G</td>
+                        </tr>
+                        <tr>
+                            <td>Right Analog Stick</td>
+                            <td>J, L, I, K</td>
+                        </tr>
+                        <tr>
+                            <td>Square</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <td>Cross</td>
+                            <td>Z</td>
+                        </tr>
+                        <tr>
+                            <td>Triangle</td>
+                            <td>S</td>
+                        </tr>
+                        <tr>
+                            <td>Circle</td>
+                            <td>X</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="controls-column">
+                    <table>
+                        <tr>
+                            <th>PS2 Controller</th>
+                            <th>Keyboard</th>
+                        </tr>
+                        <tr>
+                            <td>Start</td>
+                            <td>Return</td>
+                        </tr>
+                        <tr>
+                            <td>Select</td>
+                            <td>Backspace</td>
+                        </tr>
+                        <tr>
+                            <td>L1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>L2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>L3</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>R1</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>R2</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>R3</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </div>
+</body>
+
+</html>

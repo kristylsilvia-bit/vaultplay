@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="https://cdn.jsdelivr.net/gh/genizy/assets@main/bad-ice-cream/">
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#382C2A" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <title>Bad Ice Cream</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="poki.js"></script>
+    <script type="text/javascript" src="./js/loader.js"></script>
+    <script type="text/javascript" src="./js/virtualJoystickSkinMod.js"></script>
+    <script type="text/javascript" src="./preloader/nitromePreloader.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      canvas {
+        outline: none;
+      }
+
+      html,
+      body,
+      #container {
+        margin: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        background-color: #9badbe;
+      }
+
+      #splash {
+        position: absolute;
+        visibility: hidden;
+        z-index: 10;
+      }
+
+      #splash__image {
+        position: absolute;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("assets/badicecream_splash.jpg");
+        visibility: visible;
+        transition: opacity 0.5s;
+        z-index: 10;
+      }
+
+      #progress__root {
+        position: absolute;
+      }
+
+      #progress__line {
+        width: 0;
+        height: 100%;
+        transition: all 0.5s;
+      }
+    </style>
+  </head>
+
+  <body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+    <div id="splash__image">
+      <div id="progress__root">
+        <div id="progress__line"></div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        PokiSDK.setDebugTouchOverlayController(true);
+
+        PokiSDK.init()
+          .then(() => {
+            // successfully initialized
+            onPokiInitComplete(false);
+          })
+          .catch(() => {
+            // successfully initialized but the user has adblock
+            onPokiInitComplete(true);
+          });
+        let config;
+
+        config = {
+          key: "bic1",
+          title: "BadIceCream 1",
+          filename: "BadIceCream1_sdk",
+          pokiSDK: true,
+          debugPoki: false,
+          showFPS: false,
+          debug: false,
+          splash: "assets/badicecream_splash.jpg",
+          start: null,
+          width: 550,
+          height: 550,
+          x: 0,
+          y: 0,
+          w: "100%",
+          h: "100%",
+          stageScaleMode: null,
+          stageAlign: null,
+          progressParserWeigth: 1,
+          progress: {
+            direction: "lr",
+            back: "#35809e",
+            line: "#070bff",
+            rect: [0.25, 0.65, 0.5, 0.03],
+          },
+          box2dVersion: "none",
+          skipFramesOfScene: null,
+          buttonPokiSDKActions: null,
+          retryButtonIDS: null,
+          retryButtonAction: null,
+          actionOnStop: null,
+          actionWhenRetryButtonEncountered: null,
+          binary: [
+            {
+              name: "BadIceCream1_sdk",
+              path: "assets/BadIceCream1_sdk.swf",
+              size: 1937690,
+              resourceType: "GAME",
+            },
+          ],
+          runtime: "js/BadIceCream.js",
+        };
+
+        PokiSDK.setDebug(config.debugPoki);
+
+        Loader.init(config);
+
+        let onPokiInitComplete = (adBlocked) => {
+          PokiSDK.adBlocked = adBlocked;
+          PokiSDK.gameLoadingStart();
+
+          Loader.runGame(
+            (fill) => {
+              PokiSDK.gameLoadingProgress({
+                percentageDone: fill,
+                kbLoaded: 0,
+                kbTotal: 0,
+                fileNameLoaded: "",
+                filesLoaded: 0,
+                filesTotal: 0,
+              });
+              window.nitromePreloaderSetProgress(fill / 1.0);
+            },
+            (instance) => {
+              PokiSDK.gameLoadingFinished();
+              window.nitromePreloaderSetComplete();
+            }
+          );
+        };
+        window.nitromePreloaderInit("bad-ice-cream");
+      });
+    </script>
+  </body>
+</html>

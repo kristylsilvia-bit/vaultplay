@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/gn-math/assets@main/315/">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10433828-16"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-10433828-16');
+    </script>
+    <title>Jelly Mario</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            color: white;
+            font-family: "Lucida Grande", sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            text-align: center;
+            background-color: #000000;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /*
+        @media screen and (min-aspect-ratio: 256/240) {
+            canvas {
+                overflow-y: auto;
+                height: 100%;
+            }
+        }
+
+        @media screen and (max-aspect-ratio: 256/240) {
+            canvas {
+                overflow-x: auto;
+                width: 100%;
+            }
+        }
+        */
+
+        #container-container {
+            width:100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #adcontainer {
+            height: 100%;
+            width: 300px;
+            background-color:red;
+        }
+
+        #container {
+            /*
+            width:100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            */
+            overflow: hidden;
+        }
+
+        #loading, #mobile-info, #play {
+            width:100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mobile-info {
+            display:none;
+            flex-direction: column;
+        }
+
+        #toggleSound {
+            left: 5px;
+            bottom: 5px;
+            position: absolute;
+        }
+
+        #info {
+            right: 5px;
+            bottom: 5px;
+            position: absolute;
+        }
+
+        #version {
+            top: 5px;
+            right: 5px;
+            position: absolute;
+        }
+
+        #hashtag {
+            top: 5px;
+            left: 5px;
+            position: absolute;
+            display: table;
+        }
+        #hashtag * {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+
+<div id="mobile-info">
+    <p id="mobile-info-message">Jelly Mario does not work on mobile, sorry :(</p>
+</div>
+
+<div id="loading">
+Loading&nbsp;<span id="loadedPercent">0</span>%
+</div>
+
+<div id="play" style="display:none">
+<input hidden id="playButton" type="submit" value="Start game" />
+</div>
+
+<div id="toggleSound">
+    Sound <input id="toggleSoundCheckbox" type="checkbox" checked="checked" value="1"/>
+</div>
+
+<table width="100%" height="100%" style="table-layout:fixed; border: none;" cellspacing="0" cellpadding="0">
+    <tr>
+        <td id="container"></td>
+    </tr>
+</table>
+
+<script src="lib/three.min.js"></script>
+<script src="lib/stats.min.js"></script>
+<script src="lib/dat.gui.min.js"></script>
+<script src="build/main.js?2"></script>
+<script>
+    window.onload = function () {
+        document.getElementById('playButton').click();
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/gn-math/assets@51462750d29b68ac1e33887c1bf13d9c478d5ead/198/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Slope Plus</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        #unity-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+        function mergeFiles(fileParts) {
+            return new Promise((resolve, reject) => {
+                let buffers = [];
+
+                function fetchPart(index) {
+                    if (index >= fileParts.length) {
+                        let mergedBlob = new Blob(buffers);
+                        let mergedFileUrl = URL.createObjectURL(mergedBlob);
+                        resolve(mergedFileUrl);
+                        return;
+                    }
+                    fetch(fileParts[index]).then((response) => response.arrayBuffer()).then((data) => {
+                        buffers.push(data);
+                        fetchPart(index + 1);
+                    }).catch(reject);
+                }
+                fetchPart(0);
+            });
+        }
+
+        function getParts(file, start, end) {
+            let parts = [];
+            for (let i = start; i <= end; i++) {
+                parts.push(file + ".part" + i);
+            }
+            return parts;
+        }
+
+        window.addEventListener('resize', resizeGameContainer);
+
+        function resizeGameContainer() {
+            const container = document.getElementById('gameContainer');
+            if (container) {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                container.style.width = `${width}px`;
+                container.style.height = `${height}px`;
+            }
+        }
+
+        window.onload = function () {
+            resizeGameContainer();
+
+            Promise.all([
+                mergeFiles(getParts("https://cdn.jsdelivr.net/gh/gn-math/assets@51462750d29b68ac1e33887c1bf13d9c478d5ead/198/Build/WEB1.2.1.data.unityweb", 1, 2))
+            ]).then(([dataUrl]) => {
+                let json = {
+                    companyName: "Slope Plus",
+                    productName: "Slope Plus",
+                    dataUrl: dataUrl,
+                    wasmCodeUrl: "https://cdn.jsdelivr.net/gh/gn-math/assets@51462750d29b68ac1e33887c1bf13d9c478d5ead/198/Build/WEB1.2.1.wasm.code.unityweb",
+                    wasmFrameworkUrl: "https://cdn.jsdelivr.net/gh/gn-math/assets@51462750d29b68ac1e33887c1bf13d9c478d5ead/198/Build/WEB1.2.1.wasm.framework.unityweb",
+                    TOTAL_MEMORY: 268435456,
+                    graphicsAPI: ["WebGL 2.0", "WebGL 1.0"],
+                    webglContextAttributes: {
+                        preserveDrawingBuffer: false
+                    },
+                    splashScreenStyle: "Dark",
+                    backgroundColor: "#000000"
+                }
+                let blob = new Blob([JSON.stringify(json)], {
+                    type: 'application/json'
+                });
+                let blobUrl = URL.createObjectURL(blob);
+                UnityLoader.instantiate("gameContainer", json, {
+                    onProgress: UnityProgress,
+                    url: blobUrl
+                });
+            });
+        };
+    </script>
+</head>
+
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+    <div class="webgl-content">
+        <div id="gameContainer"></div>
+    </div>
+</body>
+
+</html>

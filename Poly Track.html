@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+
+
+
+<html>
+
+<head>
+	<base href="https://cdn.jsdelivr.net/gh/genizy/polytrack@main/">
+	<script>
+		window.jkdfgnjkndfg = document.querySelector('base').href;
+		fetch("simulation_worker.bundle.js").then(res => res.text()).then(text => {
+			const blob = new Blob([text.replaceAll("replacethisplease", window.jkdfgnjkndfg)], { type: 'application/javascript' });
+			window.simulationworker = URL.createObjectURL(blob);
+		});
+		const ogworker = window.Worker;
+		window.Worker = function (scripturl, options) {
+			if (typeof scripturl === 'string' && scripturl.toLowerCase() === "simulation_worker.bundle.js") {
+				scripturl = window.simulationworker;
+			}
+			return new ogworker(scripturl, options);
+		};
+		window.Worker.prototype = ogworker.prototype;
+
+		const ogfetch = window.fetch;
+		window.fetch = async function (input, init) {
+			if (typeof input === "string") {
+				input = input.replace("vps.kodub.com:43273", "vpskodub.tmena1565.workers.dev");
+			} else if (input instanceof Request) {
+				const newUrl = input.url.replace("vps.kodub.com:43273", "vpskodub.tmena1565.workers.dev");
+				input = new Request(newUrl, input);
+			}
+			return ogfetch(input, init);
+		};
+
+		const ogxml = XMLHttpRequest.prototype.open;
+		XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+			if (typeof url === "string") {
+				url = url.replace("vps.kodub.com:43273", "vpskodub.tmena1565.workers.dev");
+			}
+			return ogxml.call(this, method, url, ...rest);
+		};
+	</script>
+	<link rel="manifest" href="manifest.json" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+	<canvas id="screen"></canvas>
+	<div id="ui"></div>
+	<div id="transition-layer"></div>
+
+	<script type="module" src="main.bundle.js" defer></script>
+</body>
+
+</html>

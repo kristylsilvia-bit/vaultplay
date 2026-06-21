@@ -1,0 +1,181 @@
+/* =====================================================================
+   Chicken King's Vault — SHUTDOWN / FAREWELL overlay
+   Site retired Tuesday, June 16, 2026.
+   Loaded by the #ckv-shutdown snippet injected into every page.
+   Self-contained: depends on nothing else on the page.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+#ckv-shutdown {
+    /* Local palette — does not rely on vault.css */
+    --bg: #05050a;
+    --pink: #FF2D78;
+    --gold: #FFD700;
+    --blue: #00D4FF;
+    --purple: #9B5DE5;
+    --green: #00F5A0;
+    --text: #ffffff;
+    --text-muted: #b9b9c9;
+    --text-dim: #6b6b7e;
+
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;            /* above absolutely everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(20px, 5vw, 48px);
+    overflow: auto;                  /* let the card scroll on tiny screens */
+    text-align: center;
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    cursor: auto;
+    background:
+        radial-gradient(120% 90% at 50% -8%, rgba(155, 93, 229, 0.20), transparent 55%),
+        radial-gradient(90% 70% at 50% 118%, rgba(0, 212, 255, 0.12), transparent 60%),
+        var(--bg);
+    animation: ckv-fade 0.9s ease both;
+}
+
+/* The live site swapped in a custom dot/ring cursor (body.has-cursor in
+   vault.css hides the native one). The Vault is retired, so drop the custom
+   cursor entirely and use the normal OS cursor everywhere. */
+body.has-cursor,
+body.has-cursor a,
+body.has-cursor button,
+body.has-cursor input { cursor: auto !important; }
+.cursor-dot, .cursor-ring { display: none !important; }
+
+.ckv-card {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+    padding: clamp(8px, 2vw, 16px) 0;
+}
+
+/* soft glow puddle behind the headline */
+.ckv-glow {
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    width: min(640px, 92vw);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side,
+        rgba(255, 45, 120, 0.30),
+        rgba(255, 215, 0, 0.10) 46%,
+        transparent 72%);
+    filter: blur(6px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ckv-card > *:not(.ckv-glow) {
+    position: relative;
+    z-index: 1;
+}
+
+/* crown-chicken mark */
+.ckv-mark {
+    font-size: clamp(62px, 16vw, 124px);
+    line-height: 1;
+    margin-bottom: clamp(10px, 2vw, 18px);
+    filter: drop-shadow(0 12px 32px rgba(255, 45, 120, 0.35));
+    animation: ckv-float 5.5s ease-in-out infinite;
+    will-change: transform;
+}
+.ckv-mark .ckv-crown {
+    display: inline-block;
+    transform: translateY(-0.14em) rotate(-9deg);
+}
+
+.ckv-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: clamp(3rem, 11vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    margin: 0 0 clamp(10px, 1.6vw, 16px);
+    background: linear-gradient(110deg, var(--pink), var(--gold) 42%, var(--blue) 76%, var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* keep emoji in full colour, not gradient-clipped, and never split the pair */
+.ckv-title .ckv-emoji {
+    -webkit-text-fill-color: initial;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.ckv-sub {
+    font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 clamp(14px, 2vw, 18px);
+}
+
+.ckv-body {
+    font-size: clamp(0.95rem, 2vw, 1.12rem);
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0 auto clamp(22px, 3vw, 30px);
+}
+
+.ckv-date {
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: clamp(0.72rem, 1.6vw, 0.9rem);
+    color: var(--text);
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    box-shadow: 0 0 26px rgba(255, 215, 0, 0.18);
+    margin-bottom: clamp(22px, 3vw, 30px);
+}
+
+.ckv-signoff {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.85rem);
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    margin-bottom: clamp(10px, 1.5vw, 14px);
+}
+
+.ckv-credits {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    color: var(--text-dim);
+    line-height: 1.5;
+}
+
+@keyframes ckv-fade {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes ckv-float {
+    0%, 100% { transform: translateY(-6px); }
+    50%      { transform: translateY(8px); }
+}
+
+@media (max-width: 420px) {
+    .ckv-body { font-size: 0.95rem; }
+    .ckv-credits { font-size: 0.66rem; }
+}
+
+/* Calm / static for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+    #ckv-shutdown { animation: none; }
+    .ckv-mark { animation: none; }
+}

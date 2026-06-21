@@ -1,0 +1,92 @@
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+<!-- Made by Genizy--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="https://rawcdn.githack.com/bubbls/youtube-playables/main/pou/">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui, shrink-to-fit=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Pou</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <!-- For apple devices -->
+    <link rel="apple-touch-icon" type="image/png" href="assets/icon.png" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" nonce="nEsvHewDKSKQZPWExNde-A" />
+	<!-- YT PLAYABLES -->
+	<script src="https://rawcdn.githack.com/bubbls/youtube-playables/main/ytgame.js" nonce="nEsvHewDKSKQZPWExNde-A"></script>
+	
+	<!-- #FASTLIB# -->
+	<script defer src="fastLib/_importer.js" data-fast="fastLib/fastHeader.js" data-fast-options="{'checkbrowser':false}" type="text/javascript" nonce="nEsvHewDKSKQZPWExNde-A"></script>
+</head>
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+    <div id="content"> </div>
+    <div id="orientation"></div>
+	
+	<!-- start-fast-library -->
+    <script type="text/javascript" nonce="nEsvHewDKSKQZPWExNde-A">
+		document.addEventListener('fastloaded', function(e)
+		{
+			window.fast.gameReady = function()
+			{
+				window.fast.goGame({
+					prepare:prepareGame,
+					body:["vendor/phaser.min.js", "vendor/box2d-p3.min.js", "pou.min.js"],
+					init:function(){ window.gameStart(), window.fastActivePopup(), ytgame.game.firstFrameReady() },
+					enterfs:function(){ },
+					exitfs:function(){ },
+					afterinfs:function(){ window.fastCheckMiniGameForMiui(true) }
+				});
+				console.log("inside [gameReady] -> "+window.fast.lang);
+			}
+			window.fast.stageElements(window.fast.gameReady, {fsbehind:true, nostats:true});
+		}, false);
+    </script>
+	<!-- end-fast-library -->
+	
+	<script nonce="nEsvHewDKSKQZPWExNde-A">
+		async function prepareGame()
+		{
+			//check audio
+			window.fast.gameAudio = ytgame.system.isAudioEnabled();
+			//check lang
+			await ytgame.system.getLanguage().then(function(lang)
+			{
+				//strip the subtag and default to english if not supported
+				lang = lang.split('-')[0];
+				lang = (window.fast.info.languages.indexOf(lang)>-1) ? lang : window.fast.info.languages[0];
+				console.log('set lang to '+lang);
+				window.fast.lang = lang;
+				return new Promise((resolve, reject) => { resolve() });
+			});
+		}
+		//onchangeaudio
+		ytgame.system.onAudioEnabledChange(function(isAudioEnabled)
+		{
+			if(window.fast) window.fast.gameAudio = isAudioEnabled;
+			if(typeof window.fastEnableAudio==="function") window.fastEnableAudio(isAudioEnabled);
+		});
+	</script>
+</body>
+</html>

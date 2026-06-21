@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+<html lang="en">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/VinMannie/Run_3@gh-pages/">
+	<meta charset="utf-8">
+
+	<title>Run 3</title>
+
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cooldude2349/bugfixes@main/Run3beta.js"></script>  
+
+	<script>
+		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, { capture: false, passive: false });
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+			var meta = document.getElementById ("viewport");
+			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+		}
+	</script>
+	<style>
+		html,body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+		#openfl-content { background: #000000; width: 100%; height: 100%; }
+		@font-face {
+			font-family: 'Comfortaa Bold';
+			src: url('font/COMFORTAA-BOLD.eot?#iefix') format('embedded-opentype'),
+			url('font/COMFORTAA-BOLD.woff') format('woff'),
+			url('font/COMFORTAA-BOLD.TTF') format('truetype'),
+			url('font/COMFORTAA-BOLD.svg#Comfortaa%20Bold') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Comfortaa';
+			src: url('font/Comfortaa.eot?#iefix') format('embedded-opentype'),
+			url('font/Comfortaa.woff') format('woff'),
+			url('font/Comfortaa.otf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Permanent Marker';
+			src: url('font/PERMANENTMARKER.eot?#iefix') format('embedded-opentype'),
+			url('font/PERMANENTMARKER.woff') format('woff'),
+			url('font/PERMANENTMARKER.TTF') format('truetype'),
+			url('font/PERMANENTMARKER.svg#Permanent%20Marker') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+	</style>
+
+</head>
+<body style="overflow:hidden;">
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+
+	<noscript>This webpage makes extensive use of JavaScript. Please enable JavaScript in your web browser to view this page.</noscript>
+
+	<div id="openfl-content"></div>
+
+	<script type="text/javascript">
+		lime.embed ("Run3", "openfl-content", 800, 600, { parameters: {} });
+	</script>
+	<script src="js/analytics_ubg_v1_4.js"></script>
+  <!-- <script src="js/slopegame-gitlab-io.js"></script> -->
+  <script src="js/redirect_v1_0.js"></script>
+</body>
+</html>

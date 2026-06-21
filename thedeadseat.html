@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>The Deadseat</title>
+    <link rel="stylesheet" href="game-toolbar.css">
+</head>
+<body>
+<!-- CKV-SHUTDOWN:START (Chicken King's Vault retired 2026-06-16) -->
+<style id="ckv-shutdown-critical">#ckv-shutdown{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;text-align:center;background:#05050a;color:#fff;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}html.ckv-locked,body.ckv-locked{overflow:hidden!important}</style>
+<link rel="stylesheet" href="shutdown.css">
+<div id="ckv-shutdown" role="dialog" aria-modal="true" aria-label="Chicken King's Vault is closed">
+  <div class="ckv-card">
+    <div class="ckv-glow" aria-hidden="true"></div>
+    <div class="ckv-mark" aria-hidden="true"><span class="ckv-crown">&#128081;</span><span class="ckv-chicken">&#128020;</span></div>
+    <h1 class="ckv-title">That's a wrap. <span class="ckv-emoji">&#128020;&#128081;</span></h1>
+    <p class="ckv-sub">Chicken King's Vault has reached the end of the road.</p>
+    <p class="ckv-body">It's been a great year. Thanks for every class skipped, every back-row run, and every game played. The Vault is officially closed.</p>
+    <div class="ckv-date">Closed Tuesday, June 16, 2026</div>
+    <div class="ckv-signoff">&#8212; The Chicken King</div>
+    <div class="ckv-credits">GN-Math &#183; TruffledUBG &#183; Ultimate Game Stash &#183; OfficialArrowNet</div>
+  </div>
+</div>
+<script>(function(){var d=document;d.documentElement.classList.add('ckv-locked');function lock(){if(d.body){d.body.classList.add('ckv-locked');}}lock();d.addEventListener('DOMContentLoaded',lock);})();</script>
+<!-- CKV-SHUTDOWN:END -->
+
+    <div class="toolbar">
+        <a class="vault-logo" href="gamepage.html">🐔 Vault</a>
+        <div class="toolbar-sep"></div>
+        <span class="game-name">The Deadseat</span>
+        <button id="homeBtn" style="display:none">Home</button>
+        <div class="toolbar-spacer"></div>
+        <button class="fs-btn" id="fsBtn">⛶ Fullscreen</button>
+    </div>
+
+    <div class="frame-wrapper" id="frameWrapper">
+        <iframe id="gameFrame" src="The Deadseat.html" allowfullscreen allow="fullscreen"></iframe>
+    </div>
+
+    <script>
+        const fsBtn = document.getElementById('fsBtn');
+        const wrapper = document.getElementById('frameWrapper');
+        const iframe = document.getElementById('gameFrame');
+        const homeBtn = document.getElementById('homeBtn');
+
+        function isFullscreen() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        }
+
+        function requestFull(element) {
+            if (element.requestFullscreen) return element.requestFullscreen();
+            if (element.webkitRequestFullscreen) return element.webkitRequestFullscreen();
+            if (element.mozRequestFullScreen) return element.mozRequestFullScreen();
+            if (element.msRequestFullscreen) return element.msRequestFullscreen();
+        }
+
+        function exitFull() {
+            if (document.exitFullscreen) return document.exitFullscreen();
+            if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+            if (document.mozCancelFullScreen) return document.mozCancelFullScreen();
+            if (document.msExitFullscreen) return document.msExitFullscreen();
+        }
+
+        fsBtn.addEventListener('click', async () => {
+            try {
+                if (!isFullscreen()) {
+                    // Many browsers don't allow making a cross-origin iframe the fullscreen root,
+                    // so request fullscreen on the wrapper element instead.
+                    await requestFull(wrapper);
+                    fsBtn.textContent = 'Exit fullscreen';
+                } else {
+                    await exitFull();
+                    fsBtn.textContent = 'Enter fullscreen';
+                }
+            } catch (e) {
+                console.error('Fullscreen request failed', e);
+            }
+        });
+
+        // Home button navigates to index.html
+        homeBtn.addEventListener('click', () => {
+            window.location.href = 'gamepage.html';
+        });
+
+        // Update button text if user exits fullscreen via ESC or browser UI
+        document.addEventListener('fullscreenchange', () => {
+            fsBtn.textContent = isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen';
+        });
+        document.addEventListener('webkitfullscreenchange', () => {
+            fsBtn.textContent = isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen';
+        });
+        document.addEventListener('mozfullscreenchange', () => {
+            fsBtn.textContent = isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen';
+        });
+        document.addEventListener('MSFullscreenChange', () => {
+            fsBtn.textContent = isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen';
+        });
+    </script>
+</body>
+</html>
