@@ -16,7 +16,7 @@ next-env.d.ts
 /src/data/games.json
 
 # unused 19MB editor export blob (source-only, not needed by the app)
-/data.json
+/game-source/data.json
 
 # misc
 .DS_Store

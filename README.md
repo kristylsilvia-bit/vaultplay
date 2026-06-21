@@ -36,7 +36,7 @@ npm run dev      # runs the catalog generator, then starts Next.js on http://loc
 
 ## How the catalog works
 
-The source folder (this repo root) holds the raw vault export:
+The `game-source/` folder holds the raw vault export:
 
 - **Wrapper files** (`amongus.html`) — contain `<iframe id="gameFrame" src="…">`. One per game.
 - **Raw game files** (`Among Us.html`) — the actual loader (HTML5, Ruffle/Flash, Unity, …).
@@ -55,7 +55,7 @@ The source folder (this repo root) holds the raw vault export:
 6. Prunes stale output, then writes `src/data/games.json` and prints a report.
 
 `public/games/` and `src/data/games.json` are **generated** (git-ignored) — regenerated on
-every `dev`/`build`. The raw vault files in the repo root are the source of truth.
+every `dev`/`build`. The raw vault files in `game-source/` are the source of truth.
 
 ---
 
@@ -77,6 +77,7 @@ every `dev`/`build`. The raw vault files in the repo root are the source of trut
 ## Project structure
 
 ```
+game-source/               # raw vault export (game HTML, thumbnails, support assets)
 scripts/build-catalog.ts   # the generator (single source of truth)
 src/
   app/                     # routes: /, /games, /game/[slug], /favorites, /styleguide, 404

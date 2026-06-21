@@ -20,6 +20,9 @@ import {
 import { basename, extname, join } from 'node:path';
 
 const ROOT = process.cwd();
+// Raw vault files (game HTML, thumbnails, support assets) live in this folder, kept
+// out of the repo root so the root stays tidy and GitHub doesn't truncate the listing.
+const SOURCE = join(ROOT, 'game-source');
 const PUBLIC_GAMES = join(ROOT, 'public', 'games');
 const DATA_DIR = join(ROOT, 'src', 'data');
 const DATA_FILE = join(DATA_DIR, 'games.json');
@@ -180,11 +183,11 @@ const FEATURED_SLUGS = new Set([
 // ----- main ---------------------------------------------------------------------
 
 function build(): void {
-  console.log('▶ build-catalog: scanning', ROOT);
+  console.log('▶ build-catalog: scanning', SOURCE);
   mkdirSync(PUBLIC_GAMES, { recursive: true });
   mkdirSync(DATA_DIR, { recursive: true });
 
-  const entries = readdirSync(ROOT, { withFileTypes: true });
+  const entries = readdirSync(SOURCE, { withFileTypes: true });
   const htmlFiles = entries
     .filter((e) => e.isFile() && /\.html?$/i.test(e.name))
     .map((e) => e.name);
@@ -206,7 +209,7 @@ function build(): void {
   const rawCandidates: string[] = [];
   const wrapperContent = new Map<string, string>();
   for (const f of htmlFiles) {
-    const content = readFileSync(join(ROOT, f), 'utf8');
+    const content = readFileSync(join(SOURCE, f), 'utf8');
     if (/id=["']gameFrame["']/i.test(content)) {
       wrappers.push(f);
       wrapperContent.set(f, content);
@@ -250,7 +253,7 @@ function build(): void {
   };
 
   const stripAndCopyHtml = (sourceName: string, slug: string): boolean => {
-    const src = join(ROOT, sourceName);
+    const src = join(SOURCE, sourceName);
     const dest = join(PUBLIC_GAMES, `${slug}.html`);
     expected.add(`${slug}.html`);
     try {
@@ -280,7 +283,7 @@ function build(): void {
     const dest = join(PUBLIC_GAMES, `${slug}${outExt}`);
     expected.add(`${slug}${outExt}`);
     try {
-      const src = join(ROOT, match);
+      const src = join(SOURCE, match);
       if (!existsSync(dest) || statSync(dest).mtimeMs < statSync(src).mtimeMs) {
         copyFileSync(src, dest);
         report.copiedImg++;
@@ -349,7 +352,7 @@ function build(): void {
 
       if (resolved) {
         referencedRaw.add(resolved);
-        rawForInference = readFileSync(join(ROOT, resolved), 'utf8');
+        rawForInference = readFileSync(join(SOURCE, resolved), 'utf8');
         if (CDN_RE.test(rawForInference)) report.cdnDeps++;
         if (stripAndCopyHtml(resolved, slug)) {
           htmlPath = `/games/${slug}.html`;
@@ -384,7 +387,7 @@ function build(): void {
   for (const raw of rawCandidates) {
     if (referencedRaw.has(raw)) continue;
     if (PAGE_BLOCKLIST.has(raw.toLowerCase())) continue;
-    const content = readFileSync(join(ROOT, raw), 'utf8');
+    const content = readFileSync(join(SOURCE, raw), 'utf8');
     // Heuristic: must look like a game (embed/iframe/canvas/ruffle/unity), not a page.
     if (!/(ruffle|\.swf\b|<canvas|unityloader|<embed|<object|<iframe|new\s+Phaser)/i.test(content)) {
       continue;
@@ -419,7 +422,7 @@ function build(): void {
 
   // Copy support assets so relative references inside games resolve.
   for (const asset of SUPPORT_ASSETS) {
-    const src = join(ROOT, asset);
+    const src = join(SOURCE, asset);
     if (!existsSync(src)) continue;
     const dest = join(PUBLIC_GAMES, asset);
     if (!existsSync(dest) || statSync(dest).mtimeMs < statSync(src).mtimeMs) {
