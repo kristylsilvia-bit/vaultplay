@@ -53,6 +53,37 @@ const PAGE_BLOCKLIST = new Set([
 const SHUTDOWN_RE = /<!--\s*CKV-SHUTDOWN:START[\s\S]*?CKV-SHUTDOWN:END\s*-->/g;
 const CDN_RE = /cdn\.jsdelivr\.net|jsdelivr|githack|raw\.githubusercontent|unpkg\.com/i;
 
+/**
+ * Ad/injector tech bundled into some game files. Each pattern is deliberately narrow so
+ * it only removes advertising, never game logic. `(?:(?!<\/script>)[\s\S])*?` is a
+ * "tempered" match so a <script> body match can't run past its own closing tag.
+ */
+const AD_PATTERNS: ReadonlyArray<RegExp> = [
+  // Standalone display-ad loader scripts, matched by src. Deliberately EXCLUDES the
+  // GameMonetize / GameDistribution / CrazyGames / AdinPlay SDKs: those double as the
+  // game's own launcher (e.g. they fire the callback that boots the game), so removing
+  // them would break the game. Off the original domain those networks skip ads anyway.
+  /<script\b[^>]*\bsrc=["'][^"']*(?:googlesyndication\.com|doubleclick\.net|adservice\.google|amazon-adsystem\.com|adnxs\.com|adsterra|propellerads|hilltopads|popads\.|onclickads)[^"']*["'][^>]*>(?:(?!<\/script>)[\s\S])*?<\/script>/gi,
+  // <ins class="adsbygoogle"> ad slots.
+  /<ins\b[^>]*\badsbygoogle\b[\s\S]*?<\/ins>/gi,
+  // The canonical AdSense init call (kept narrow so it can't match game scripts).
+  /<script\b[^>]*>\s*\(adsbygoogle\s*=\s*window\.adsbygoogle\s*\|\|\s*\[\]\)\.push\(\{[^}]*\}\);?\s*<\/script>/gi,
+  // Resource hints (preconnect / dns-prefetch / dict) pointing at ad domains.
+  /<link\b[^>]*\bhref=["'][^"']*(?:doubleclick|googlesyndication|googleadservices|amazon-adsystem|adnxs|2mdn|moatads)[^"']*["'][^>]*>/gi,
+  // Injected sidebar ad containers (id="sidebarad1/2"), one nested child div.
+  /<div\b[^>]*\bid=["']sidebarad[12]["'][\s\S]*?<\/div>\s*<\/div>/gi,
+  // The obfuscated script that injects the sidebar ad iframes.
+  /<script\b[^>]*>(?:(?!<\/script>)[\s\S])*?sidebarad(?:(?!<\/script>)[\s\S])*?<\/script>/gi,
+];
+
+/** Strip the shutdown overlay and any bundled ad/injector tech from a game file. */
+function cleanGameHtml(html: string): { html: string; adsRemoved: boolean } {
+  let out = html.replace(SHUTDOWN_RE, '');
+  const beforeAds = out;
+  for (const re of AD_PATTERNS) out = out.replace(re, '');
+  return { html: out, adsRemoved: out !== beforeAds };
+}
+
 interface GameEntry {
   id: string;
   slug: string;
@@ -241,6 +272,7 @@ function build(): void {
     copiedHtml: 0,
     copiedImg: 0,
     nameResolvedByFallback: 0,
+    adsStripped: 0,
   };
   const missingList: string[] = [];
 
@@ -260,7 +292,8 @@ function build(): void {
       if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(src).mtimeMs) {
         return true; // incremental: up to date
       }
-      const cleaned = readFileSync(src, 'utf8').replace(SHUTDOWN_RE, '');
+      const { html: cleaned, adsRemoved } = cleanGameHtml(readFileSync(src, 'utf8'));
+      if (adsRemoved) report.adsStripped++;
       writeFileSync(dest, cleaned, 'utf8');
       report.copiedHtml++;
       return true;
@@ -465,6 +498,7 @@ function build(): void {
   console.log(`Missing thumbnails:     ${report.missingThumb} (placeholder shown)`);
   console.log(`Games with CDN deps:    ${report.cdnDeps}`);
   console.log(`HTML written this run:  ${report.copiedHtml}`);
+  console.log(`Ad/injectors stripped:  ${report.adsStripped}`);
   console.log(`Images copied this run: ${report.copiedImg}`);
   console.log(`Stale files pruned:     ${pruned}`);
   console.log('\nBy category:');

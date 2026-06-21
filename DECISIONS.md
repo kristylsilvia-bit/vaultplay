@@ -53,6 +53,28 @@ HTML. Games are **not** sandboxed — Ruffle/Unity are finicky and these are the
 archived files; compatibility was prioritized over isolation. Revisit if ever serving
 untrusted user-submitted games.
 
+## Removing ads (two very different cases)
+
+The catalog generator strips ads alongside the shutdown overlay (`cleanGameHtml`), but
+only the parts that are safe to remove:
+
+- **Standalone display ads — removed.** Google AdSense (`<ins class="adsbygoogle">`, the
+  `googlesyndication`/`pagead2` loader, the canonical `(adsbygoogle = …).push({})` call),
+  ad-network loader scripts (doubleclick, amazon-adsystem, adnxs, adsterra, …), ad-domain
+  resource-hint `<link>`s, and the obfuscated "sidebar ad" injector (id `sidebarad1/2`)
+  found in one game. These are pure advertising — removing them can't break a game.
+- **Game-launcher monetization SDKs — left in place.** GameMonetize, GameDistribution
+  (`GD_OPTIONS`), CrazyGames, and AdinPlay (`aiptag`/`aipPlayer`) are *not* removed,
+  because the game boots through them. e.g. Granny calls `createUnityInstance` inside the
+  GameMonetize SDK script's `onload`; deleting the SDK means the game never starts. These
+  networks also gate ads by registered domain, so on a fresh deployment they typically
+  skip ads and just fire the start callback — i.e. the games tend to run ad-free anyway.
+
+Two deliberate non-actions: `_0x…` obfuscated **game code** (CircloO 2, Dadish 3, Google
+Feud, War The Knights) is left untouched — only the one obfuscated *ad injector* is
+removed; and `googletagmanager`/`gtag` is **analytics, not ads**, so it stays (it also
+happens to be a substring of "googletag", which is why a naive scan over-reports it).
+
 ## App architecture
 
 - **Next.js App Router + SSG.** `generateStaticParams` pre-renders all 739 game pages, so
