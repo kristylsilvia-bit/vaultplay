@@ -23,6 +23,6 @@ export const useFavorites = create<FavoritesState>()(
       isFavorite: (slug) => get().ids.includes(slug),
       clear: () => set({ ids: [] }),
     }),
-    { name: 'vault-favorites' },
+    { name: 'gamejet-favorites' },
   ),
 );

@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { totalGames } from '@/lib/games';
 
-export const alt = 'VaultPlay — Play 700+ free browser games';
+export const alt = 'Gamejet — Play 700+ free browser games';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -40,7 +40,7 @@ export default function OpengraphImage() {
             color: '#c4b5fd',
           }}
         >
-          VAULTPLAY
+          GAMEJET
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: 24 }}>
           <div style={gradientText}>{totalGames}+ free browser games,</div>

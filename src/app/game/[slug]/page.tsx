@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: `Play ${game.title}`,
     description: `Play ${game.title} free online — ${game.category}. Instant, no download, right in your browser.`,
     openGraph: {
-      title: `Play ${game.title} · VaultPlay`,
+      title: `Play ${game.title} · Gamejet`,
       description: `Play ${game.title} free online, instantly in your browser.`,
       images: game.thumbnail ? [{ url: game.thumbnail }] : undefined,
     },

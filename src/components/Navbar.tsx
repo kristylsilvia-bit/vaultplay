@@ -34,7 +34,7 @@ export function Navbar() {
             <Gamepad2 className="h-5 w-5" />
           </span>
           <span>
-            Vault<span className="text-gradient">Play</span>
+            Game<span className="text-gradient">jet</span>
           </span>
         </Link>
 

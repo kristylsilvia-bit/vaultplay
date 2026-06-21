@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'VaultPlay — Free Browser Games',
-    short_name: 'VaultPlay',
+    name: 'Gamejet — Free Browser Games',
+    short_name: 'Gamejet',
     description: 'Play 700+ free browser games instantly. No sign-up, no downloads.',
     start_url: '/',
     display: 'standalone',

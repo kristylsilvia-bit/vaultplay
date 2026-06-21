@@ -20,17 +20,17 @@ const display = Sora({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vaultplay.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gamejet.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'VaultPlay — Play 700+ Free Browser Games',
-    template: '%s · VaultPlay',
+    default: 'Gamejet — Play 700+ Free Browser Games',
+    template: '%s · Gamejet',
   },
   description: `Play ${totalGames}+ free browser games instantly — no sign-up, no downloads. Arcade, racing, shooters, puzzles and more.`,
   keywords: ['free games', 'browser games', 'online games', 'play games', 'arcade'],
-  applicationName: 'VaultPlay',
+  applicationName: 'Gamejet',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'VaultPlay',
-    title: 'VaultPlay — Play 700+ Free Browser Games',
+    siteName: 'Gamejet',
+    title: 'Gamejet — Play 700+ Free Browser Games',
     description: 'Hundreds of free browser games, instantly playable. No sign-up required.',
     url: siteUrl,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VaultPlay — Play 700+ Free Browser Games',
+    title: 'Gamejet — Play 700+ Free Browser Games',
     description: 'Hundreds of free browser games, instantly playable.',
   },
 };

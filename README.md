@@ -1,4 +1,4 @@
-# VaultPlay — Browser Game Portal
+# Gamejet — Browser Game Portal
 
 A production-ready portal for **700+ browser games**: a fast, searchable, filterable
 catalog with a clean branded play shell. Built from an exported "Vault" of game files.

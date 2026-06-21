@@ -94,7 +94,7 @@ export default function StyleguidePage() {
         </span>
         <h1 className="mt-4 font-display text-4xl font-bold tracking-tight">Style guide</h1>
         <p className="mt-2 max-w-xl text-muted-foreground">
-          Every primitive in the VaultPlay component kit, built from a single set of design
+          Every primitive in the Gamejet component kit, built from a single set of design
           tokens. Use the theme toggle in the nav, or compare both themes below.
         </p>
       </header>

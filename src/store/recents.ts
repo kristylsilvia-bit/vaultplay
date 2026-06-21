@@ -36,6 +36,6 @@ export const useRecents = create<RecentsState>()(
         }),
       clear: () => set({ entries: [] }),
     }),
-    { name: 'vault-recents' },
+    { name: 'gamejet-recents' },
   ),
 );

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { games } from '@/lib/games';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vaultplay.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gamejet.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

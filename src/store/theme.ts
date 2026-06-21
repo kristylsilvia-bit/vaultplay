@@ -4,7 +4,7 @@ import { create } from 'zustand';
 
 export type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'vault-theme';
+const STORAGE_KEY = 'gamejet-theme';
 
 function applyTheme(theme: Theme): void {
   if (typeof document === 'undefined') return;

@@ -11,7 +11,7 @@ export function Footer() {
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-gradient text-white">
               <Gamepad2 className="h-5 w-5" />
             </span>
-            Vault<span className="text-gradient">Play</span>
+            Game<span className="text-gradient">jet</span>
           </Link>
           <p className="mt-3 text-sm text-muted-foreground">
             {totalGames}+ browser games, free and instant — no sign-up, no downloads. Just
@@ -52,7 +52,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container flex flex-col items-center justify-between gap-2 py-5 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} VaultPlay. Games belong to their respective creators.</p>
+          <p>© {new Date().getFullYear()} Gamejet. Games belong to their respective creators.</p>
           <p>Built with Next.js · Deployed on Vercel</p>
         </div>
       </div>
